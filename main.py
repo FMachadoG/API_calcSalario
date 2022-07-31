@@ -31,12 +31,10 @@ def homepage():
 
 @app.route('/salario', methods=['GET'])
 def salario():
-    userAuth = request.headers.get('usuario')
-    passAuth= request.headers.get('senha')
-    argsSalario = request.args.get('salario')
 
     try:
-        if (request.method != 'GET'):
+        if not request.method == 'GET':
+
             methodRetur = request.method
 
             messageMethodInv = {
@@ -45,6 +43,11 @@ def salario():
                 'mensagem': f'Método \'{methodRetur}\' não suportado. Método suportado: \'GET\''
             }
             return messageMethodInv, 405
+
+        userAuth = request.headers.get('usuario')
+        passAuth= request.headers.get('senha')
+        argsSalario = request.args.get('salariobruto')
+
 
         if (userAuth is None or passAuth is None):
             messageNoAuth = {
@@ -66,7 +69,7 @@ def salario():
             messageNoArg = {
                     'status': 400,
                     'cod_erro': None, 
-                    'mensagem': 'Está faltando alguma coisa :/ Ah! Não encontrado o parametro \'salario\''
+                    'mensagem': 'Está faltando alguma coisa :/ Ah! Não encontrado o parametro \'salariobruto\''
             }
             return messageNoArg, 400
 
@@ -78,7 +81,7 @@ def salario():
             }
         return messageError, 500
     
-    valorSalarioBruto = request.args.get('salario')
+    valorSalarioBruto = request.args.get('salariobruto')
 
     try:
         valorSalarioBruto = float(valorSalarioBruto)
@@ -156,9 +159,20 @@ def salario():
 
         if (BaseCalculoIRRF < 1903.99):
 
-            salario = {'sal_bruto': salarioBruto, 'val_irrf': 0.00, 'val_inss': valorfolhaINSS, 'tot_descontos': valorfolhaINSS, 'sal_liquido': BaseCalculoIRRF}
+            salario = {'cabecalho':{
+                            'status':200,
+                            'mensagem': 'OK'
+                        },
+                        'totais':{
+                            'salarioBruto': salarioBruto, 
+                            'valorIRRF': 0.00, 
+                            'valorINSS': valorfolhaINSS, 
+                            'totalDesconto': valorfolhaINSS, 
+                            'salarioLiquido': BaseCalculoIRRF
+                        }
+                    }
 
-            return jsonify(salario)
+            return salario, 200
 
         elif (BaseCalculoIRRF >= 1903.99 and BaseCalculoIRRF <= 2826.65):
             valorfolhaIRRF = arredondar((BaseCalculoIRRF * (7.5 / 100)) - 142.80)
@@ -167,9 +181,20 @@ def salario():
 
             salarioLiquido = arredondar(salarioBruto - valorfolhaINSS - valorfolhaIRRF)
 
-            salario = {'sal_bruto': float(salarioBruto), 'val_irrf': valorfolhaIRRF, 'val_inss': valorfolhaINSS, 'tot_descontos': totalDescontosIRRFINNS, 'sal_liquido': salarioLiquido}
+            salario = {'cabecalho':{
+                            'status':200,
+                            'mensagem': 'OK'
+                        },
+                        'totais':{
+                            'salarioBruto': salarioBruto, 
+                            'valorIRRF': valorfolhaIRRF, 
+                            'valorINSS': valorfolhaINSS, 
+                            'totalDesconto': totalDescontosIRRFINNS, 
+                            'salarioLiquido': salarioLiquido
+                        }
+                    }
 
-            return jsonify(salario)
+            return salario, 200
 
         elif (BaseCalculoIRRF >= 2826.66 and BaseCalculoIRRF <= 3751.05):
             valorfolhaIRRF = arredondar((BaseCalculoIRRF * (15 / 100)) - 354.80)
@@ -178,9 +203,21 @@ def salario():
 
             salarioLiquido = arredondar(salarioBruto - valorfolhaINSS - valorfolhaIRRF)
 
-            salario = {'sal_bruto': salarioBruto, 'val_irrf': valorfolhaIRRF, 'val_inss': valorfolhaINSS, 'tot_descontos': totalDescontosIRRFINNS, 'sal_liquido': salarioLiquido}
+            # salario = {'sal_bruto': salarioBruto, 'val_irrf': valorfolhaIRRF, 'val_inss': valorfolhaINSS, 'tot_descontos': totalDescontosIRRFINNS, 'sal_liquido': salarioLiquido}
+            salario = {'cabecalho':{
+                            'status':200,
+                            'mensagem': 'OK'
+                        },
+                        'totais':{
+                            'salarioBruto': salarioBruto, 
+                            'valorIRRF': valorfolhaIRRF, 
+                            'valorINSS': valorfolhaINSS, 
+                            'totalDesconto': totalDescontosIRRFINNS, 
+                            'salarioLiquido': salarioLiquido
+                        }
+                    }
 
-            return jsonify(salario)
+            return salario, 200
 
         elif (BaseCalculoIRRF >= 3751.06 and BaseCalculoIRRF <= 4664.68):
             valorfolhaIRRF = arredondar((BaseCalculoIRRF * (22.5 / 100)) - 636.13)
@@ -189,9 +226,20 @@ def salario():
 
             salarioLiquido = arredondar(salarioBruto - valorfolhaINSS - valorfolhaIRRF)
 
-            salario = {'sal_bruto': salarioBruto, 'val_irrf': valorfolhaIRRF, 'val_inss': valorfolhaINSS, 'tot_descontos': totalDescontosIRRFINNS, 'sal_liquido': salarioLiquido}
+            salario = {'cabecalho':{
+                            'status':200,
+                            'mensagem': 'OK'
+                        },
+                        'totais':{
+                            'salarioBruto': salarioBruto, 
+                            'valorIRRF': valorfolhaIRRF, 
+                            'valorINSS': valorfolhaINSS, 
+                            'totalDesconto': totalDescontosIRRFINNS, 
+                            'salarioLiquido': salarioLiquido
+                        }
+                    }
 
-            return jsonify(salario)
+            return salario, 200
 
         elif (BaseCalculoIRRF > 4664.68):
             valorfolhaIRRF = arredondar((BaseCalculoIRRF * (27.5 / 100)) - 869.36)
@@ -200,9 +248,20 @@ def salario():
 
             salarioLiquido = arredondar(salarioBruto - valorfolhaINSS - valorfolhaIRRF)
 
-            salario = {'sal_bruto': float(salarioBruto), 'val_irrf': float(valorfolhaIRRF), 'val_inss': float(valorfolhaINSS), 'tot_descontos': float(totalDescontosIRRFINNS), 'sal_liquido': float(salarioLiquido)}
+            salario = {'cabecalho':{
+                            'status':200,
+                            'mensagem': 'OK'
+                        },
+                        'totais':{
+                            'salarioBruto': salarioBruto, 
+                            'valorIRRF': valorfolhaIRRF, 
+                            'valorINSS': valorfolhaINSS, 
+                            'totalDesconto': totalDescontosIRRFINNS, 
+                            'salarioLiquido': salarioLiquido
+                        }
+                    }
 
-            return jsonify(salario)
+            return salario, 200
 
     try:
         return calculoSalario(valorSalarioBruto)
