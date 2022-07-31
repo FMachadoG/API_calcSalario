@@ -69,7 +69,7 @@ def salario():
             messageNoArg = {
                     'status': 400,
                     'cod_erro': None, 
-                    'mensagem': 'Está faltando alguma coisa :/ Ah! Não encontrado o parametro \'salariobruto\''
+                    'mensagem': 'Está faltando alguma coisa :/ Ah! Não encontrado o parâmetro \'salariobruto\''
             }
             return messageNoArg, 400
 
