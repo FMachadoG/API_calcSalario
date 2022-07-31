@@ -217,9 +217,14 @@ def salario():
     
 
 
-# @app.errorhandler(404)
-# def notfound(notfound):
-#     return redirect('/', code=302)    
+@app.errorhandler(404)
+def notfound(notfound):
+    messageNotfound = {
+                'status': 404,
+                'cod_status': None,
+                'mensagem': f'Hmm.. nada por aqui.'
+            }
+    return messageNotfound, 404 
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='8080')
