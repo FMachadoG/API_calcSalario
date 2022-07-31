@@ -50,7 +50,7 @@ def salario():
             messageNoAuth = {
                 'status': 401,
                 'cod_erro': None,
-                'mensagem':'Sem autorização. Por favor preencha os dados corretamento.'
+                'mensagem':'Está sem autorização, meu camarada. Por favor, preencha os dados corretamento ou ligue para nosso suporte. Tel.: 4002-8922 :D'
             }
             return messageNoAuth, 401
             
@@ -58,7 +58,7 @@ def salario():
             messageForb = {
                 'status': 403,
                 'cod_erro': None,
-                'mensagem':'Usuário ou senha inválida. Por favor, tente novamente.'
+                'mensagem':'Usuário ou senha são inválidos. Por favor, tente novamente, daqui 2 dias XD brincadeira :P'
             }
             return messageForb, 403
 
@@ -66,7 +66,7 @@ def salario():
             messageNoArg = {
                     'status': 400,
                     'cod_erro': None, 
-                    'mensagem': 'Não encontrado o parametro \'salario\''
+                    'mensagem': 'Está faltando alguma coisa :/ Ah! Não encontrado o parametro \'salario\''
             }
             return messageNoArg, 400
 
@@ -74,7 +74,7 @@ def salario():
         messageError = {
                 'status': 500,
                 'code_error': None, 
-                'mensagem': f'{v}'
+                'mensagem': f'Vish! Acho que deu ruim. Erro: {v}'
             }
         return messageError, 500
     
@@ -87,7 +87,7 @@ def salario():
             messageSalMenorQue = {
                 'status': 400,
                 'cod_erro': None,
-                'mensagem': 'Valor menor que 1212.00. Por favor, informar um valor maior ou igual a 1212.00'
+                'mensagem': 'Está ganhando pouco em, rapaz. Por favor, informar um valor maior ou igual a 1212.00 :D'
             }
             return messageSalMenorQue, 400
 
@@ -95,7 +95,7 @@ def salario():
         messageArgInvalid = {
             'status': 400,
             'cod_erro': None,
-            'mensagem': 'Dados invalidos. Por favor verifique os dados preenchidos.'
+            'mensagem': 'Dados invalidos. Por favor, verifique os dados preenchidos.'
         }
         return messageArgInvalid, 400
 
@@ -214,7 +214,6 @@ def salario():
             'mensagem': error
         }
         return messageError, 500
-    
 
 
 @app.errorhandler(404)
@@ -222,7 +221,7 @@ def notfound(notfound):
     messageNotfound = {
                 'status': 404,
                 'cod_status': None,
-                'mensagem': f'Hmm.. nada por aqui.'
+                'mensagem': f'Hmm.. nada por aqui :('
             }
     return messageNotfound, 404 
 
