@@ -1,9 +1,9 @@
 ## Documentação
 ```GET /salario```
-*Parâmetros*
-    salariobruto: float
-*Headers*
-    usuario: string
+**Parâmetros**<br/>
+    salariobruto: float<br/>
+**Headers**<br/>
+    usuario: string<br/>
     senha: string
 
 ## Erros
