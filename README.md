@@ -6,7 +6,6 @@ Códigos:
     4: Erro no seviço
     5: Caminho não encontrado
     999: Em manutenção
-
 <h1 align="center">Hi 👋, I'm Filipe Machado</h1>
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=fmachadog&label=Profile%20views&color=0e75b6&style=flat" alt="fmachadog" /> </p>
 
