@@ -1,5 +1,4 @@
-from ast import Try
-from flask import Flask, redirect
+from flask import Flask, redirect, render_template
 import validation as vd
 from calcSalary import calculoSalario
 
@@ -18,7 +17,7 @@ def authentication():
 @app.route('/')
 def homepage():
     try:
-        return redirect('https://app.swaggerhub.com/apis-docs/FMachadoG/MAPI-Salario/0.1.0', 302)
+        return render_template('homepage.html')
     except Exception as e:
         messageException = {
             'status': 500,
