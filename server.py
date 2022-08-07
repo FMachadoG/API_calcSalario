@@ -27,6 +27,19 @@ def homepage():
         }
         return messageException, 500
     
+@app.route('/docs')
+def documentation():
+    try:
+        return redirect('https://app.swaggerhub.com/apis-docs/FMachadoG/MAPI-Salario/0.1.0')
+    except Exception as e:
+        messageException = {
+            'status': 500,
+            'cod_erro': 4,
+            'mensagem': 'Vish! Acho que deu ruim. D:',
+            'error': str(e)
+        }
+        return messageException, 500
+
 
 @app.route('/salario', methods=['GET', 'POST'])
 def salario():
