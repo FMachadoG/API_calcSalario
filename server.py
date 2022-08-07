@@ -18,11 +18,6 @@ def authentication():
 @app.route('/')
 def homepage():
     try:
-        authReturn = vd.authentication()
-
-        if authReturn != False:
-            return authReturn
-
         return redirect('https://app.swaggerhub.com/apis-docs/FMachadoG/MAPI-Salario/0.1.0', 302)
     except Exception as e:
         messageException = {
