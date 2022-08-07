@@ -1,23 +1,13 @@
 from flask import request
-
 from tools import validMoeda
 
-def validationResponse():
+def authentication():
     try:
-        requestMethod = request.method
         userAuth = request.headers.get('usuario')
         passAuth = request.headers.get('senha')
-        salarioArg = request.args.get('salariobruto')
 
-        if (requestMethod != 'GET'):
-            messageMethodInvalid = {
-                'status': 405,
-                'cod_status': 3,
-                'mensagem': f'Método \'{requestMethod}\' não suportado. Método suportado: \'GET\''
-            }
-            return messageMethodInvalid, 405
-
-        elif (userAuth is None or passAuth is None):
+        
+        if (userAuth is None or passAuth is None):
             messageNoAuth = {
                 'status': 401,
                 'cod_erro': 3,
@@ -33,13 +23,37 @@ def validationResponse():
             }
             return messageForb, 403
 
+        else:
+            return False
+    except Exception as e:
+        messageError = {
+                'status': 500,
+                'code_error': 3, 
+                'mensagem': 'Vish! Acho que deu ruim. D:',
+                'erro:': str(e)
+            }
+        return messageError, 500
+
+def validParam():
+    try:
+        requestMethod = request.method
+        salarioArg = request.args.get('salariobruto')
+
+        if (requestMethod != 'GET'):
+            messageMethodInvalid = {
+                'status': 405,
+                'cod_status': 3,
+                'mensagem': f'Método \'{requestMethod}\' não suportado. Método suportado: \'GET\''
+            }
+            return messageMethodInvalid, 405
+
         elif (salarioArg is None):
             messageNoArg = {
-                    'status': 400,
+                    'status': 401,
                     'cod_erro': 3, 
                     'mensagem': 'Está faltando alguma coisa. Ah! Não encontrado o parâmetro \'salariobruto\' :D'
             }
-            return messageNoArg, 400
+            return messageNoArg, 401
 
         elif (salarioArg is not None):
             validSalario = validMoeda(salarioArg)

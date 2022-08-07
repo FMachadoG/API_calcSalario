@@ -1,4 +1,5 @@
-from flask import Flask
+from ast import Try
+from flask import Flask, redirect
 import validation as vd
 from calcSalary import calculoSalario
 
@@ -16,16 +17,34 @@ def authentication():
 
 @app.route('/')
 def homepage():
-    return '<h1>Hello</h1>'
+    try:
+        authReturn = vd.authentication()
+
+        if authReturn != False:
+            return authReturn
+
+        return redirect('https://app.swaggerhub.com/apis-docs/FMachadoG/MAPI-Salario/0.1.0', 302)
+    except Exception as e:
+        messageException = {
+            'status': 500,
+            'cod_erro': 4,
+            'mensagem': 'Vish! Acho que deu ruim. D:',
+            'error': str(e)
+        }
+        return messageException, 500
+    
 
 @app.route('/salario', methods=['GET', 'POST'])
 def salario():
 
     try:
-        validationReturn = vd.validationResponse()
+        validationReturn = vd.validParam()
+        authReturn = vd.authentication()
 
         if validationReturn != False:
             return validationReturn
+        if authReturn != False:
+            return authReturn
 
         return calculoSalario()
 

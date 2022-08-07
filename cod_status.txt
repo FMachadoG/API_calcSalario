@@ -1,0 +1,7 @@
+400: Valores inválidos
+405: sem suport para outro metodo sem ser GET
+401: Dados não preenchidos corretamente
+403: sem autorizacao
+404: Caminho não encontrado
+500: Erro no código
+503: Em manutenção
